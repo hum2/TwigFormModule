@@ -3,7 +3,7 @@
 namespace Hum2\TwigFormModule;
 
 use Aura\Session\SessionFactory;
-use BEAR\Resource\ResourceObject;
+use Hum2\TwigFormModule\Exception\InvalidCsrfException;
 use Ray\Aop\MethodInterceptor;
 use Ray\Aop\MethodInvocation;
 
@@ -30,9 +30,7 @@ class FormInterceptor implements MethodInterceptor
         $session   = $this->factory->newInstance($_COOKIE);
         $csrfToken = $session->getCsrfToken();
         if (!$csrfToken->isValid($this->getActualToken())) {
-            /** @var $resourceObject ResourceObject */
-            $resourceObject = $invocation->getThis();
-            $resourceObject->onGet();
+            throw new InvalidCsrfException;
         }
         $csrfToken->regenerateValue();
 

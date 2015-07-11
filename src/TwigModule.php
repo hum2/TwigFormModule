@@ -3,6 +3,7 @@
 namespace Hum2\TwigFormModule;
 
 use BEAR\AppMeta\AbstractAppMeta;
+use BEAR\AppMeta\AppMeta;
 use BEAR\Resource\RenderInterface;
 use Madapaja\TwigModule\Annotation\TwigOptions;
 use Madapaja\TwigModule\Annotation\TwigPaths;
@@ -47,6 +48,7 @@ class TwigModule extends AbstractModule
      */
     protected function configure()
     {
+        $this->bind(AbstractAppMeta::class)->toInstance(new AppMeta('Hum2\TwigFormModule'));
         $this->bind(RenderInterface::class)->to(TwigRenderer::class)->in(Scope::SINGLETON);
         if ($this->paths) {
             $this->bind()->annotatedWith(TwigPaths::class)->toInstance($this->paths);

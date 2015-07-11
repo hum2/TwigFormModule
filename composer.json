@@ -1,21 +1,21 @@
 {
-    "name": "hum2/twig-form-module",
-    "require": {
-        "madapaja/twig-module": "^1.0",
-        "hum2/twig-form": "^0.1"
-    },
-    "require-dev": {
-      "phpspec/phpspec": "~2.2"
-    },
-    "autoload": {
-      "psr-4": {
-        "Hum2\\TwigFormModule\\": "src/"
-      }
-    },
-    "authors": [
-        {
-            "name": "Shuhei Suzuki",
-            "email": "hum2.dmg@gmail.com"
-        }
-    ]
+  "name": "hum2/twig-form-module",
+  "require": {
+    "madapaja/twig-module": "^1.0",
+    "hum2/twig-form": "^0.1"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Hum2\\TwigFormModule\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Shuhei Suzuki",
+      "email": "hum2.dmg@gmail.com"
+    }
+  ]
 }
