@@ -12,7 +12,13 @@ composer require hum2/twig-form-module
 
 ## How To Use
 
+Install TwigModule.
+```php
+$this->override(new TwigModule('Hoge\Tutorial'));
+```
+
 ## dependency Package
 
 - bear/sunday
 - madapaja/twig-module
+- hum2/twig-form
