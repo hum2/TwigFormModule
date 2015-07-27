@@ -2,8 +2,7 @@
 
 namespace Hum2\TwigFormModule;
 
-use BEAR\AppMeta\AbstractAppMeta;
-use BEAR\AppMeta\AppMeta;
+use Aura\Session\SessionFactory;
 use BEAR\Resource\RenderInterface;
 use Madapaja\TwigModule\Annotation\TwigOptions;
 use Madapaja\TwigModule\Annotation\TwigPaths;
@@ -17,9 +16,9 @@ use Twig_LoaderInterface;
 class TwigModule extends AbstractModule
 {
     /**
-     * @var AbstractAppMeta
+     * @var string
      */
-    private $appMeta;
+    private $appName;
 
     /**
      * @var array
@@ -32,13 +31,15 @@ class TwigModule extends AbstractModule
     private $options;
 
     /**
-     * @param array $paths Twig template paths
-     * @param array $options Twig_Environment options
+     * @param string $appName Application name "{Vendor}\{Package}"
+     * @param array  $paths   Twig template paths
+     * @param array  $options Twig_Environment options
+     *
      * @see http://twig.sensiolabs.org/api/master/Twig_Environment.html
      */
-    public function __construct(AbstractAppMeta $appMeta, $paths = [], $options = [])
+    public function __construct($appName, $paths = [], $options = [])
     {
-        $this->appMeta = $appMeta;
+        $this->appName = $appName;
         $this->paths   = $paths;
         $this->options = $options;
     }
@@ -48,7 +49,7 @@ class TwigModule extends AbstractModule
      */
     protected function configure()
     {
-        $this->bind(AbstractAppMeta::class)->toInstance(new AppMeta('Hum2\TwigFormModule'));
+        $this->bind(SessionFactory::class)->in(Scope::SINGLETON);
         $this->bind(RenderInterface::class)->to(TwigRenderer::class)->in(Scope::SINGLETON);
         if ($this->paths) {
             $this->bind()->annotatedWith(TwigPaths::class)->toInstance($this->paths);
@@ -66,7 +67,7 @@ class TwigModule extends AbstractModule
 
         // Intercepted Page Resource
         $this->bindInterceptor(
-            $this->matcher->startsWith($this->appMeta->name . '\Page'),
+            $this->matcher->startsWith($this->appName . '\Page'),
             $this->matcher->logicalOr(
                 $this->matcher->startsWith('onPost'),
                 $this->matcher->startsWith('onPut'),
