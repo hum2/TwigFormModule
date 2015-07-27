@@ -67,7 +67,7 @@ class TwigModule extends AbstractModule
 
         // Intercepted Page Resource
         $this->bindInterceptor(
-            $this->matcher->startsWith($this->appName . '\Page'),
+            $this->matcher->startsWith($this->appName . '\Resource\Page'),
             $this->matcher->logicalOr(
                 $this->matcher->startsWith('onPost'),
                 $this->matcher->startsWith('onPut'),
